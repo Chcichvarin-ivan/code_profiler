@@ -2,7 +2,7 @@
  * @Author: Ivan Chichvarin ichichvarin@humanplus.ru
  * @Date: 2024-03-27 23:19:41
  * @LastEditors: Ivan Chichvarin ichichvarin@humanplus.ru
- * @LastEditTime: 2024-03-30 15:58:07
+ * @LastEditTime: 2024-03-30 18:24:18
  * @FilePath: /big_numbers_law/big_numbers_law.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -23,6 +23,31 @@ vector<int> ReverseVector(const vector<int>& source_vector) {
 
     return res;
 }
+
+vector<int> ReverseVector2(const vector<int>& source_vector) {
+    vector<int> res;
+
+    // будем проходить source_vector задом наперёд
+    // с помощью обратного итератора
+    for (auto iterator = source_vector.rbegin(); iterator != source_vector.rend(); ++iterator) {
+        res.push_back(*iterator);
+    }
+
+    return res;
+} 
+
+vector<int> ReverseVector3(const vector<int>& source_vector) {
+    vector<int> res;
+    res.reserve(source_vector.size());
+
+    // будем проходить sourceVector задом наперёд
+    // с помощью обратного итератора
+    for (auto iterator = source_vector.rbegin(); iterator != source_vector.rend(); ++iterator) {
+        res.push_back(*iterator);
+    }
+
+    return res;
+} 
 
 int CountPops(const vector<int>& source_vector, int begin, int end) {
     int res = 0;
@@ -46,17 +71,33 @@ void AppendRandom(vector<int>& v, int n) {
     }
 }
 
+void AppendRandom2(vector<int>& v, int n) {
+    for (int i = 0; i < n; i += 15) {
+        int number = rand();
+
+        // мы можем заполнить 15 элементов вектора,
+        // но не более, чем нам осталось до конца:
+        int count = min(15, n - i);
+
+        for (int j = 0; j < count; ++j)
+            // таким образом, получим j-й бит числа.
+            // операцию побитового сдвига вы уже видели в этой программе
+            // на этот раз двигаем вправо, чтобы нужный бит оказался самым последним
+            v.push_back((number >> j) % 2);
+    }
+}
+
 void Operate() {
     vector<int> random_bits;
     LOG_DURATION("Total");
     // операция << для целых чисел это сдвиг всех бит в двоичной
     // записи числа. Запишем с её помощью число 2 в степени 17 (131072)
-    static const int N = 1 << 17;
+    static const int N = 1 << 25;
 
     {
         LOG_DURATION("Append random");
         // заполним вектор случайными числами 0 и 1
-        AppendRandom(random_bits, N);
+        AppendRandom2(random_bits, N);
     } 
     
     vector<int> reversed_bits;
@@ -64,7 +105,7 @@ void Operate() {
     {
         LOG_DURATION("Reverse");
         // перевернём вектор задом наперёд
-        reversed_bits = ReverseVector(random_bits);
+        reversed_bits = ReverseVector3(random_bits);
    
     } 
     
