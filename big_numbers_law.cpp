@@ -2,7 +2,7 @@
  * @Author: Ivan Chichvarin ichichvarin@humanplus.ru
  * @Date: 2024-03-27 23:19:41
  * @LastEditors: Ivan Chichvarin ichichvarin@humanplus.ru
- * @LastEditTime: 2024-03-30 18:24:18
+ * @LastEditTime: 2024-03-31 13:26:44
  * @FilePath: /big_numbers_law/big_numbers_law.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -62,6 +62,7 @@ int CountPops(const vector<int>& source_vector, int begin, int end) {
 }
 
 void AppendRandom(vector<int>& v, int n) {
+    v.reserve(v.size()+(size_t)n);
     for (int i = 0; i < n; ++i) {
         // получаем случайное число с помощью функции rand.
         // с помощью (rand() % 2) получим целое число в диапазоне 0..1.
@@ -72,6 +73,7 @@ void AppendRandom(vector<int>& v, int n) {
 }
 
 void AppendRandom2(vector<int>& v, int n) {
+    v.reserve(v.size()+(size_t)n);
     for (int i = 0; i < n; i += 15) {
         int number = rand();
 
